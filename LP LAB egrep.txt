@@ -1,0 +1,58 @@
+itlab-57@device.~/1257$ cat>newfile
+Hello world
+hello world
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
+
+1. itlab-57@device.~/1257$ egrep -w 'Hello|hello' newfile 
+Hello world
+hello world
+
+2. itlab-57@device.~/1257$ egrep -w '(H|h)ello' newfile 
+Hello world
+hello world
+
+3. itlab-57@device.~/1257$ egrep -w '(H|h)ell[a-z]' newfile 
+Hello world
+hello world
+
+4. itlab-57@device.~/1257$ egrep '(^hello)' newfile 
+hello world
+
+5. itlab-57@device.~/1257$ egrep '(world$)' newfile 
+Hello world
+hello world
+
+6. itlab-57@device.~/1257$ egrep '(World$)' newfile 
+Linux is best in this World
+
+7. itlab-57@device.~/1257$ egrep l{2} newfile
+Hello world
+hello world
+
+8. itlab-57@device.~/1257$ egrep 'Linux.*World' newfile
+Linux is best in this World
+
+9. itlab-57@device.~/1257$ egrep 'Linux.*world' newfile
+Linux is world number 1
+
+10. itlab-57@device.~/1257$ egrep '[1-9]' newfile
+Linux is world number 1
+
+11. itlab-57@device.~/1257$ egrep '((W|w)orld$)' newfile 
+Hello world
+hello world
+Linux is best in this World
+
+12. itlab-57@device.~/1257$ egrep '(World$)' newfile
+Linux is best in this World
+
+13. itlab-57@device.~/1257$ egrep 's{1,2}' newfile
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
+
+
+
+

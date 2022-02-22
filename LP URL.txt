@@ -1,0 +1,14 @@
+itlab-57@device.~/1257$ cat > urllist.txt
+www. yahoo. com
+www. google. com
+www. mrcet.... com
+
+1. itlab-57@device.~/1257$ cat urllist.txt | tr -d ' '
+www.yahoo.com
+www.google.com
+www.mrcet....com
+
+2. itlab-57@device.~/1257$ cat urllist.txt | tr -d ' ' | tr -s '.'
+www.yahoo.com
+www.google.com
+www.mrcet.com

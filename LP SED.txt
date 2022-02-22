@@ -1,0 +1,106 @@
+itlab-57@device.~/1257$ cat file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+1. itlab-57@device.~/1257$ sed -n -e '3p' file23
+1002 | tom |  5000 | Admin
+
+2. itlab-57@device.~/1257$ sed -n -e '$p' file23
+1001 | Ram | 10000 | HR
+
+3.itlab-57@device.~/1257$ sed  -e 's/Ram/Sita/' file23
+1001 | Sita | 10000 | HR
+1001 | Sita | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Sita | 10000 | HR
+
+4. itlab-57@device.~/1257$ sed  -e '2s/Ram/Sita/' file23
+1001 | Ram | 10000 | HR
+1001 | Sita | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+5. itlab-57@device.~/1257$ sed  '/tom/s/5000/6000/' file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  6000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+6. itlab-57@device.~/1257$ sed -n -e '1,5p' file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+
+7. itlab-57@device.~/1257$ sed -n -e '2,/Joe/p' file23
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+
+8. itlab-57@device.~/1257$ sed -n -e '/tom/,/Joe/p' file23
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+
+9. itlab-57@device.~/1257$ seq 10 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+10. itlab-57@device.~/1257$ seq 10 | sed -n '4,6p'
+4
+5
+6
+
+11. itlab-57@device.~/1257$ seq 10 | sed -n '2,~4p'
+2
+3
+4
+
+12. itlab-57@device.~/1257$ seq 3 | sed '2a hello'
+1
+2
+hello
+3
+
+13. itlab-57@device.~/1257$ seq 10 | sed '2,9c hello'
+1
+hello
+10
+
+14. itlab-57@device.~/1257$ sed -n '2,4{s/^/$/;p}' file23
+$1001 | Ram | 10000 | HR
+$1002 | tom |  5000 | Admin
+$1003 | Joe |  7000 | Developer
+
+15. itlab-57@device.~/1257$ sed -n '2,4{s/$/*/;p}' file23
+1001 | Ram | 10000 | HR*
+1002 | tom |  5000 | Admin*
+1003 | Joe |  7000 | Developer*
+
+

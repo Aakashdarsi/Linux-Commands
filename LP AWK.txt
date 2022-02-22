@@ -1,0 +1,150 @@
+itlab-57@device.~/1257 cat file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+1. itlab-57@device.~/1257 awk '/Sit/' file23
+1004 | Sit |  7000 | Dev
+
+2. itlab-57@device.~/1257 awk {print} file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+3. itlab-57@device.~/1257 awk '{print $0}' file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+4. itlab-57@device.~/1257 awk '{print NR, $0}' file23
+ 1 1001 | Ram | 10000 | HR
+ 2 1001 | Ram | 10000 | HR
+ 3 1002 | tom |  5000 | Admin
+ 4 1003 | Joe |  7000 | Developer
+ 5 1005 | Sam |  5000 | HR
+ 6 1004 | Sit |  7000 | Dev
+ 7 1003 | Joe |  7000 | Developer
+ 8 1001 | Ram | 10000 | HR
+
+5. itlab-57@device.~/1257 awk -F"|" '{print NR, $1, $2, $5}' file23
+ 1 1001   Ram  
+ 2 1001   Ram  
+ 3 1002   tom  
+ 4 1003   Joe  
+ 5 1005   Sam  
+ 6 1004   Sit  
+ 7 1003   Joe  
+ 8 1001   Ram  
+
+6. itlab-57@device.~/1257 awk -F'|' '/per$/' file23
+1003 | Joe |  7000 | Developer
+1003 | Joe |  7000 | Developer
+
+7. itlab-57@device.~/1257 awk -F '|' '$3~/[6-7]+/' file23
+1003 | Joe |  7000 | Developer
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+
+
+8. itlab-57@device.~/1257 awk -F"|" '$4 !~ /D/{print $1, $2, $4}' file23
+1001   Ram   HR
+1001   Ram   HR
+1002   tom   Admin
+1005   Sam   HR
+1001   Ram   HR
+
+9. itlab-57@device.~/1257 awk -F"|" '{print NR, $1,$2, $3+5000}' file23
+ 1 1001   Ram  15000
+ 2 1001   Ram  15000
+ 3 1002   tom  10000
+ 4 1003   Joe  12000
+ 5 1005   Sam  10000
+ 6 1004   Sit  12000
+ 7 1003   Joe  12000
+ 8 1001   Ram  15000
+
+10. itlab-57@device.~/1257 awk -F"|" '$3>7500{print NR OFS  $1 $2 $3 $4}' file23
+1 1001  Ram  10000  HR
+2 1001  Ram  10000  HR
+8 1001  Ram  10000  HR
+
+11. itlab-57@device.~/1257 awk -F"|" '$3 ~ /[5-7]+/' file23
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+
+12. itlab-57@device.~/1257 awk -F"|" '($3>6000)&&($3<=10000) {print $0}' file23
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1003 | Joe |  7000 | Developer
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
+
+13. itlab-57@device.~/1257 awk -F"|" 'BEGIN{print "SALARY INCREMENT"}''{print NR, $1,$2, $3+5000}''END{print "End of stmt"}'  file23
+SALARY INCREMENT
+1 1001   Ram  15000
+2 1001   Ram  15000
+3 1002   tom  10000
+4 1003   Joe  12000
+5 1005   Sam  10000
+6 1004   Sit  12000
+7 1003   Joe  12000
+8 1001   Ram  15000
+End of stmt
+
+14. itlab-57@device.~/1257 awk -F"|" 'BEGIN{print "SALARY INCREMENT"; print "_______________"; ORS="<-- Record No.\n"}''{print  $1,$2, $3+5000, NR}''END{print "End of stmt"}'  file23
+SALARY INCREMENT
+_______________
+1001   Ram  15000 1<-- Record No.
+1001   Ram  15000 2<-- Record No.
+1002   tom  10000 3<-- Record No.
+1003   Joe  12000 4<-- Record No.
+1005   Sam  10000 5<-- Record No.
+1004   Sit  12000 6<-- Record No.
+1003   Joe  12000 7<-- Record No.
+1001   Ram  15000 8<-- Record No.
+End of stmt<-- Record No.
+
+15. itlab-57@device.~/1257 awk -F"|" 'BEGIN{print "SALARY INCREMENT"; ORS=" --\n"}''{print NR, $1,toupper($2), $3+5000}''END{print "End of stmt"}'  file23
+SALARY INCREMENT
+1 1001   RAM  15000 --
+2 1001   RAM  15000 --
+3 1002   TOM  10000 --
+4 1003   JOE  12000 --
+5 1005   SAM  10000 --
+6 1004   SIT  12000 --
+7 1003   JOE  12000 --
+8 1001   RAM  15000 --
+End of stmt --
+
+16. itlab-57@device.~/1257  awk -F"|" 'BEGIN{print "SALARY INCREMENT"; print "_______________"; ORS="<-- Record No.\n"}''{print  $1,$2, $3+5000, NR}''END{print "End of stmt"}'  file23
+SALARY INCREMENT
+_______________
+1001   Ram  15000 1<-- Record No.
+1001   Ram  15000 2<-- Record No.
+1002   tom  10000 3<-- Record No.
+1003   Joe  12000 4<-- Record No.
+1005   Sam  10000 5<-- Record No.
+1004   Sit  12000 6<-- Record No.
+1003   Joe  12000 7<-- Record No.
+1001   Ram  15000 8<-- Record No.
+End of stmt<-- Record No.
+
